@@ -10,13 +10,13 @@ void gotoxy (int x, int y){
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 }
 
-
 FILE *fp;
 int currentInnings = 1;
 char filename[50];
 char extension[] = ".txt";
 char directory[60] = "File//";
 
+void welcome();
 void printGameDetails();
 void printCurrentInnings();
 int checkIfFileExists(const char *filename);
@@ -33,6 +33,7 @@ void inputGameDetails();
 void inputPlayer();
 void match();
 void printMatchResult();
+int Exit();
 
 struct gameDetails {
     char competitionName[50];
@@ -70,26 +71,91 @@ struct bowler {
     int extra;
 } bowlerTeamA[8], bowlerTeamB[8];
     
-    
-    
+
+
 int main() {
     
+    welcome();
     menu();
     system("cls");
+    system("COLOR 04");
     gotoxy(50,10);
     printf("You are at Main Function");
     getch();
     return 0;
 }
+void welcome(){
+    int i=0,j;
+    system("cls");
+    system("COLOR 09");
+    char d[] = " Welcome to DIU Cricket Association ";
+    gotoxy(10,1);
+    for(j=0;j<18;j++)
+    {
+        Sleep(50);
+        printf("*");
+    }
+    for(j=0;j<strlen(d);j++)
+    {
+        Sleep(50); 
+        printf("%c",d[j]);
+    }
+    for(j=0;j<18;j++)
+    {
+        Sleep(50);
+        printf("*");
+    }
+}
 
 void menu() {
     system("cls");
+    system("COLOR 02");
+
+    gotoxy(35,1);
+    printf("==============");
+    gotoxy(47,2);
+    printf("||");
+    gotoxy(47,3);
+    printf("||");
+    gotoxy(47,4);
+    printf("||");
+    gotoxy(35,2);
+    printf("||");
+    gotoxy(35,3);
+    printf("||");
+    gotoxy(35,4);
+    printf("||");
+    gotoxy(35,5);
+    printf("==============");
+
+
+
+
+    gotoxy(40,3);
+    printf("MENU");
+
+    gotoxy(30,7);
+    printf("\xB2\xDB 1. New scoresheet:");
+    
+    gotoxy(30,9);
+    printf("\xB2\xDB 2. View scoresheet:");
+
+    gotoxy(30,11);
+    printf("\xB2\xDB 3. Exit scoresheet:");
+
+    gotoxy(30,13);
+    printf("Your choice:");
+
+
+
     int n;
+    /*
     printf("\n\n\t\t\t\tCricket Score Sheet\n");
     printf("\n\n\n\t\t\t\t1.New scoresheet:\n");
     printf("\t\t\t\t2.View scoresheet:\n");
     printf("\t\t\t\t3.Exit:\n\t\t");
     printf("\n\t\t\tEnter your choice: \033[0;m ");
+    */
     scanf("%d", &n);
     fflush(stdin);
     switch(n) {
@@ -108,7 +174,7 @@ void menu() {
                 checkFileRead();
                 break;
 
-        case 3: exit(0); break;
+        case 3: Exit(); break;
         default:
                 gotoxy(36,10);
                 printf("Invalid Choice!~ Please try again.");
@@ -270,26 +336,29 @@ void fileNameMaker() {
 void ppt() {
     
     system("cls");
+    system("COLOR 09");
+    // system("COLOR 0A");
     
     //game_details
-    gotoxy(0,0);
+    gotoxy(1,0);
     printf("Competition:");
     gotoxy(35,0);
     printf("Venue:");
-    gotoxy(0,2);
+    gotoxy(1,2);
     printf("Match Between:");
     gotoxy(35,2);
     printf("Versus:");
-    gotoxy(0,4);
+    gotoxy(1,4);
     printf("Toss won by:");
     gotoxy(35,4);
     printf("Elected to:");
-    gotoxy(0,6);
+    gotoxy(1,6);
     printf("Inning of:");
     gotoxy(35,6);
     printf("Date:");
  
     //Batting
+    // system("COLOR 0C");
     gotoxy(0,8);
     printf("%c",179);
     gotoxy(8,8);
@@ -315,6 +384,7 @@ void ppt() {
     printf("Run Rate: ");
     
     //Bowling
+    // system("COLOR 0A");
     gotoxy(5,24);
     printf("Bowlers");
     gotoxy(37,24);
@@ -391,7 +461,6 @@ void ppt() {
         printf("%c",205);
     }
 }
-
 
 void view() {
     system("cls");
@@ -501,6 +570,7 @@ void printCurrentInnings() {
 void fileWrite() {
 
     fp = fopen(directory,"a+");
+    strcpy(directory,"File//");
     
     rewind(fp);
     fwrite(&gameDetails,sizeof(gameDetails),1,fp);
@@ -532,6 +602,7 @@ void fileWrite() {
     
     return;
 }
+
 void fileRead() {
     
     fp = fopen(directory,"r");
@@ -576,6 +647,7 @@ void printGameDetails() {
     gotoxy(47,6);
     printf("%s",gameDetails.date);
 }
+
 void printMatchResult() {
     
     match();
@@ -639,6 +711,7 @@ void checkFileRead() {
     return;
     
 }
+
 void checkFileWrite() {
     
     gotoxy(90,7);
@@ -675,4 +748,100 @@ int checkIfFileExists(const char * filename) {
     }
     
     return 0;
+}
+
+int Exit() {
+    system("cls");
+    system("COLOR 0E");
+
+    gotoxy(20,3);
+    printf("DIU Cricket Association");
+    gotoxy(20,4);
+    printf("This project is made by:");
+
+
+    char ch[40] = "Shayed Hasan Shakib";
+    int i;
+    gotoxy(10,7);
+    for(i=0;i<strlen(ch);i++)
+    {
+        Sleep(45);
+        printf("%c",ch[i]);
+    }
+    strcpy(ch,"203-15-3878");                
+    gotoxy(15,8);
+    for(i=0;i<strlen(ch);i++)
+    {
+        Sleep(45);
+        printf("%c",ch[i]);
+    }
+    strcpy(ch,"Md. Anowar Hossain");
+    gotoxy(36,7);
+    for(i=0;i<strlen(ch);i++)
+    {
+        Sleep(45);
+        printf("%c",ch[i]);
+    }
+    strcpy(ch,"203-15-3870");
+    gotoxy(40,8);
+    for(i=0;i<strlen(ch);i++)
+    {
+        Sleep(45);
+        printf("%c",ch[i]);
+    }
+    strcpy(ch,"Md. Mustafizur Rahman");
+    gotoxy(8,10);
+    for(i=0;i<strlen(ch);i++)
+    {
+        Sleep(45);
+        printf("%c",ch[i]);
+    }
+    strcpy(ch,"203-15-3875");
+    gotoxy(15,11);
+    for(i=0;i<strlen(ch);i++)
+    {
+        Sleep(45);
+        printf("%c",ch[i]);
+    }
+    strcpy(ch,"Jahid Imran");
+    gotoxy(40,10);
+    for(i=0;i<strlen(ch);i++)
+    {
+        Sleep(45);
+        printf("%c",ch[i]);
+    }
+    strcpy(ch,"203-15-3887");
+    gotoxy(40,11);
+    for(i=0;i<strlen(ch);i++)
+    {
+        Sleep(45);
+        printf("%c",ch[i]);
+    }
+
+    strcpy(ch,"Md. Rakibul Islam Shanto");
+    gotoxy(21,13);
+    for(i=0;i<strlen(ch);i++)
+    {
+        Sleep(45);
+        printf("%c",ch[i]);
+    }
+    strcpy(ch,"203-15-3871");
+    gotoxy(26,14);
+    for(i=0;i<strlen(ch);i++)
+    {
+        Sleep(45);
+        printf("%c",ch[i]);
+    }
+
+    
+    gotoxy(10,16);
+    printf("Thank you for using our console application");
+    for(i=3;i>=0;i--)
+    {   
+        Sleep(1000);
+        gotoxy(16,18);
+        printf("Exiting in %d second...........>",i);
+    }
+
+    exit(0);
 }
